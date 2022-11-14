@@ -18,7 +18,7 @@ var counted = [];
 var score = [];
 var squares = [];
 
-function init() {
+function initialize() {
   
   board = [];
   turn = 1;
@@ -67,7 +67,7 @@ function takeTextboxValue(){
 function setup() {
   createCanvas(800, 600);
   textbox = createInput("ENTER STRING");
-  init();
+  initialize();
 
 }
 
@@ -75,7 +75,7 @@ function draw() {
   background(220);
   gameboard();
   textstuff();
-  reset();
+  resetBoard();
   inputbuttonstuff();
 
 }
@@ -217,8 +217,11 @@ function textstuff() {
     textSize(20);
     text("player " + i + ":   " + score[i], 580, 100 + i * 50);
   }
+  var boardState = getBoardState();
+  fill(0);
+  text(boardState, 98, 50);
 }
-function reset(){
+function resetBoard(){
   fill(255,255,255);
   rect(580,400,200,100);
   fill(0,0,0);
@@ -228,7 +231,7 @@ function reset(){
   text("RESET", 630,460);
   if(mouseX>580 && mouseX<780 && mouseY>400 && mouseY<500){
     if(mouseIsPressed){
-      init();
+      initialize();
     }
   }
 }
@@ -247,4 +250,14 @@ function inputbuttonstuff(){
       textstuff();
     }
   }
+}
+
+function getBoardState(){
+  var boardState = "";
+  for(let i = 0; i < board_size; i++){
+    for(let j = 0; j < board_size; j++){
+      boardState += board[i][j];
+    }
+  }
+  return boardState;
 }
